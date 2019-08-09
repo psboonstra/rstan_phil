@@ -327,9 +327,9 @@ ess_bulk <- function(sims) {
 #' 
 #' @export
 ess_tail <- function(sims) {
-  I05 <- sims <= quantile(sims, 0.05)
+  I05 <- sims <= quantile(sims, 0.05, na.rm = T)
   q05_ess <- ess_rfun(split_chains(I05))
-  I95 <- sims <= quantile(sims, 0.95)
+  I95 <- sims <= quantile(sims, 0.95, na.rm = T)
   q95_ess <- ess_rfun(split_chains(I95))
   min(q05_ess, q95_ess)
 }
@@ -657,13 +657,4 @@ print.simsummary <- function(x, digits = 3, se = FALSE, ...) {
   	)
   }
   invisible(x)
-}
-
-# this is needed to make DeLorean's vignette build
-`[.simsummary` <- function (x, i, j, drop = if (missing(i)) TRUE else length(j) == 1) {
-  out <- `[.data.frame`(x, i, j, drop)
-  nms <- rownames(x)[i]
-  if (drop) names(out) <- nms
-  else rownames(out) <- nms
-  return(out)
 }
