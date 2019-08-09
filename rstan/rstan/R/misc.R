@@ -955,7 +955,7 @@ get_par_summary <- function(sim, n, probs = default_summary_probs()) {
                  else sim$samples[[i]][[n]][-(1:sim$warmup2[i])]
                })
   msdfun <- function(chain) c(mean(chain), sd(chain))
-  qfun <- function(chain) quantile(chain, probs = probs)
+  qfun <- function(chain) quantile(chain, probs = probs, na.rm = T)
   c_msd <- unlist(lapply(ss, msdfun), use.names = FALSE)
   c_quan <- unlist(lapply(ss, qfun), use.names = FALSE)
   ass <- do.call(c, ss)
@@ -984,7 +984,7 @@ get_par_summary_quantile <- function(sim, n, probs = default_summary_probs()) {
                  if (sim$warmup2[i] == 0) sim$samples[[i]][[n]]
                  else sim$samples[[i]][[n]][-(1:sim$warmup2[i])]
                })
-  sumfun <- function(chain) quantile(chain, probs = probs)
+  sumfun <- function(chain) quantile(chain, probs = probs, na.rm = T)
   cs <- lapply(ss, sumfun)
   as <- sumfun(do.call(c, ss))
   list(quan = as, c_quan = unlist(cs, use.names = FALSE))
