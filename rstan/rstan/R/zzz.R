@@ -26,17 +26,17 @@ OUT <- 0
   assignInMyNamespace("OUT", value = get_stream())
 }
 
-.onAttach <- function(...) {
-  rstanLib <- dirname(system.file(package = "rstan"))
-  pkgdesc <- packageDescription("rstan", lib.loc = rstanLib)
-  gitrev <- substring(git_head(), 0, 12)
-  packageStartupMessage(paste("rstan (Version ", pkgdesc$Version, ", GitRev: ", gitrev, ")", sep = ""))
-  packageStartupMessage("For execution on a local, multicore CPU with excess RAM we recommend calling\n",
-                        "options(mc.cores = parallel::detectCores()).\n",
-                        "To avoid recompilation of unchanged Stan programs, we recommend calling\n",
-                        "rstan_options(auto_write = TRUE)")
-  if (.Platform$OS.type == "windows")
-    packageStartupMessage("For improved execution time, we recommend calling\n",
-                          "Sys.setenv(LOCAL_CPPFLAGS = '-march=native')\n",
-                          "although this causes Stan to throw an error on a few processors.")
-}
+# .onAttach <- function(...) {
+#   rstanLib <- dirname(system.file(package = "rstan"))
+#   pkgdesc <- packageDescription("rstan", lib.loc = rstanLib)
+#   gitrev <- substring(git_head(), 0, 12)
+#   packageStartupMessage(paste("rstan (Version ", pkgdesc$Version, ", GitRev: ", gitrev, ")", sep = ""))
+#   packageStartupMessage("For execution on a local, multicore CPU with excess RAM we recommend calling\n",
+#                         "options(mc.cores = parallel::detectCores()).\n",
+#                         "To avoid recompilation of unchanged Stan programs, we recommend calling\n",
+#                         "rstan_options(auto_write = TRUE)")
+#   if (.Platform$OS.type == "windows")
+#     packageStartupMessage("For improved execution time, we recommend calling\n",
+#                           "Sys.setenv(LOCAL_CPPFLAGS = '-march=native')\n",
+#                           "although this causes Stan to throw an error on a few processors.")
+#}
